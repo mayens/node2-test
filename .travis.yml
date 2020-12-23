@@ -5,3 +5,11 @@ services:
 script:
   - docker build -t mayens/node2 .
   - docker images mayens/node2
+before_deploy:
+  - docker login -u "$DOCKER_USERNAME"   -p "$DOCKER_USERPASSWORD"
+
+deploy:
+  provider: script
+  script: docker push mayens/node2-test
+  on:
+    branch: master
